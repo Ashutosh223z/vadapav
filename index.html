@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Motaa Bhaii 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #FF8FAB;
+            --secondary: #FB6F92;
+            --bg-gradient: linear-gradient(135deg, #FFF0F3 0%, #E0C3FC 100%);
+            --text-dark: #4A4A4A;
+            --text-light: #7E7E7E;
+            --glass: rgba(255, 255, 255, 0.7);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Background Floating Hearts */
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.4);
+            animation: floatUp linear infinite;
+            z-index: 0;
+            user-select: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 450px;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .typing-text {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            min-height: 24px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .sub-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .heart-pulse {
+            display: inline-block;
+            font-size: 1.5rem;
+            margin-left: 5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative; /* Essential for NO button movement */
+            min-height: 60px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-yes {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(251, 111, 146, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            background-color: #ff5c8d;
+        }
+
+        .btn-no {
+            background-color: white;
+            color: var(--text-light);
+            border: 2px solid #f0f0f0;
+            position: relative;
+            transition: all 0.3s ease; /* Smooth glide */
+        }
+
+        /* Success Screen */
+        .success-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .big-yay {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+        }
+
+        .marathi-official {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-top: 10px;
+        }
+
+        /* Floating Random Text */
+        .floating-msg {
+            position: absolute;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            opacity: 0;
+            pointer-events: none;
+            animation: floatFade 4s ease-in-out forwards;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        @keyframes floatFade {
+            0% { opacity: 0; transform: translateY(10px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(-10px); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Footer */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            color: rgba(0,0,0,0.3);
+            font-size: 0.8rem;
+        }
+
+        /* Toast Message for "No" */
+        .toast {
+            position: fixed;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-100px);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 100;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        /* Audio Control */
+        .audio-control {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.5);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        /* Date Display */
+        .date-display {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="romantic.mp3" type="audio/mpeg">
+    </audio>
+    <div class="audio-control" onclick="toggleMusic()">🎵</div>
+
+    <div id="hearts-container"></div>
+
+    <div class="toast" id="toastMsg">Arey asa nahi chalaycha 😌 punha try kar!</div>
+
+    <div class="container">
+        
+        <div class="card" id="proposalCard">
+            <h1>Hey Nairaa  <span class="heart-pulse">💕</span></h1>
+            
+            <div class="typing-text" id="typingText"></div>
+
+            <p class="sub-text">
+                You make my world softer, brighter, and way happier. <br>
+                Motaa bhaii, tu majhya life madhla best decision ahes. <br>
+                Tu asel tar sagla perfect vatat.
+            </p>
+
+            <div style="margin: 30px 0;">
+                <p style="font-size: 1.2rem; color: var(--text-dark); font-weight: 600;">Will you be my Valentine? 💗</p>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="acceptProposal()">YES 💗</button>
+                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()" onclick="moveButton()">NO 😅</button>
+            </div>
+
+            <div class="date-display">
+                Valentine’s Day – 14 February
+            </div>
+        </div>
+
+        <div class="success-screen" id="successScreen">
+            
+            <video autoplay loop muted playsinline style="width: 100%; max-width: 280px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                <source src="cat-kiss.mp4">
+            </video>
+            <div class="big-yay">Yaayyy!! Motaa Bhaii said YES 💖</div>
+            <p class="marathi-official">Ata official Valentine zala aplyaa 💞</p>
+            <br>
+            <p style="color: #777;">Screenchya screenshot kadh ani mala pathav! 📸</p>
+        </div>
+
+    </div>
+
+    <footer>
+        Made with ❤️ specifically for you Naira😔☝️
+    </footer>
+
+    <script>
+        // --- 1. Background Heart Animation ---
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 15;
+            
+            for(let i=0; i<heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('bg-heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 4 + 's'; // 4-7s
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heart.style.opacity = Math.random() * 0.5;
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // --- 2. Typing Effect ---
+        const textToType = "Mala tujhyashi kahi bolaycha aahe...";
+        const typingElement = document.getElementById('typingText');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typingElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        // Start typing after a short delay
+        setTimeout(typeWriter, 1000);
+
+        // --- 3. The "No" Button Logic (Run away) ---
+        const btnNo = document.getElementById('btnNo');
+        const toast = document.getElementById('toastMsg');
+
+        function moveButton() {
+            // Get playful message
+            showToast();
+            
+            // Calculate random position within the card or nearby
+            // We use fixed positioning tweaks to make it jump
+            const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2) + 50; 
+            const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2) + 50;
+
+            // For mobile, we keep it simple so it doesn't go off screen
+            const isMobile = window.innerWidth < 768;
+            
+            if(isMobile) {
+                // Just swap flex order or wiggle strongly
+                const randomX = Math.floor(Math.random() * 150) - 75;
+                const randomY = Math.floor(Math.random() * 150) - 75;
+                btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            } else {
+                // Desktop - run wild
+                btnNo.style.position = 'absolute';
+                btnNo.style.left = Math.random() * 300 + 'px';
+                btnNo.style.top = Math.random() * 300 + 'px';
+            }
+        }
+
+        function showToast() {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // --- 4. The "Yes" Action ---
+        function acceptProposal() {
+            const card = document.getElementById('proposalCard');
+            const success = document.getElementById('successScreen');
+
+            // Fade out card
+            card.style.transition = "opacity 0.5s ease";
+            card.style.opacity = "0";
+            
+            setTimeout(() => {
+                card.style.display = "none";
+                success.style.display = "flex";
+                triggerConfetti();
+                startFloatingQuotes();
+            }, 500);
+        }
+
+        // --- 5. Confetti Effect ---
+        function triggerConfetti() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInOut(min, max) {
+            return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.1, 0.3), y: Math.random() - 0.2 } }));
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // --- 6. Floating Extra Quotes ---
+        const quotes = [
+            "Tu majhi favourite notification ahes😔☝️",
+            "ilu ilu 😨",
+            "I Loveeee Youuu sooo Much babyyy💗",
+            "Oyeee Vada Pav😈",
+            "Pippo Merese Jada Pyar Karta Hai",
+            "Meriii aloooo!!!",
+            "Uhhu! NAHI 😒",
+            "Muahhhhhh💋",
+            " तू माझी NAIRAA SINGHH CHAUHAN आहेस",
+            "Meriii Chakli khtm ho gyi😭",
+            "Upper Music Wala Icon tap karo🎵",
+            "Patthar pe patthar maroge toh chingari niklegi, mehnat pe mehnat karoge toh kamyabi milegi"
+            
+        ];
+
+        function startFloatingQuotes() {
+            setInterval(() => {
+                const quote = document.createElement('div');
+                quote.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+                quote.classList.add('floating-msg');
+                
+                // Random position
+                quote.style.left = Math.random() * 80 + 10 + '%';
+                quote.style.top = Math.random() * 80 + 10 + '%';
+                
+                document.body.appendChild(quote);
+
+                // Cleanup
+                setTimeout(() => {
+                    quote.remove();
+                }, 4000);
+            }, 2000);
+        }
+
+        // --- 7. Audio Toggle ---
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                isPlaying = true;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
